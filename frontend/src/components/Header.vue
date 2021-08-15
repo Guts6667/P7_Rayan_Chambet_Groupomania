@@ -13,10 +13,10 @@
           <button class="btn_bg">Publier</button>
         </div>
         <div>
-          <button>Profile</button>
+          <button>Forum</button>
         </div>
         <div>
-          <button>Forum</button>
+          <button>Profile</button>
         </div>
       </div>
     </header>
@@ -37,6 +37,7 @@ header {
   flex-direction: column;
   justify-items: center;
   padding: 10px;
+  border-bottom: solid 2px $btn_color;
 }
 .container {
   display: flex;

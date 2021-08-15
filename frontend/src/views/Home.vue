@@ -10,7 +10,7 @@
       </div>
       <div class="btn_container">
         <div>
-          <button class="btn_bg" @click="signIn()">Connexion</button>
+          <button @click="signIn()">Connexion</button>
         </div>
         <div>
           <button @click="signUp()">Inscription</button>
@@ -74,7 +74,7 @@ export default {
 </script>
 <style lang="scss" scoped>
 $primary: #f9d8d831;
-$btn_color: #b93539;
+$btn_color: #b83539;
 .containerBody {
   min-height: 100vh;
   max-height: 100%;
