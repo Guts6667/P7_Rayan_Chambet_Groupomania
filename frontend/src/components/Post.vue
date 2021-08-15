@@ -1,53 +1,82 @@
 <template>
   <div>
-    <div class="containerBtnPost">
-      <textarea id="" class="input"></textarea>
+    <div class="containerBtn">
+      <textarea class="input" v-model="post_content"></textarea>
       <div>
-        <button>Postez !</button>
+        <button @click="createPost()" class="button">Postez !</button>
       </div>
     </div>
-    <div class="container">
+    <div class="container" v-for="(post, idx) in posts" :key="idx">
       <div>
         <div class="post">
-          <h5 class="postFullname">Rayan Chambet :</h5>
+          <h5 class="postFullname">{{ post.username }} :</h5>
           <p class="text">
-            Hello tout le monde ! Voici mon premier post 😊
+            {{ post.post_content }}
           </p>
-          <h6 class="date">Créé le : 19/12/2021</h6>
+          <h6 class="date">Créé le : {{ convertDate(post.created) }}</h6>
         </div>
-        <div class="comment">
+        <div>
+          <h6>{{ post.nbcomments }} commentaire(s)</h6>
+        </div>
+        <!-- <div class="comment">
           <h5>Sarah Roi :</h5>
           <p class="text">Cool ! Bienvenue 🥳</p>
           <h6 class="date">Créé le : 20/12/2021</h6>
-        </div>
+        </div> -->
       </div>
-          <textarea id="" class="input"></textarea>
-          <button>Commenter</button>
-    </div>
-    <div class="container">
-      <div>
-        <div class="post">
-          <h5 class="postFullname">Rayan Chambet :</h5>
-          <p class="text">
-            Hello tout le monde ! Voici mon premier post 😊
-          </p>
-          <h6 class="date">Créé le : 19/12/2021</h6>
-        </div>
-        <div class="comment">
-          <h5>Sarah Roi :</h5>
-          <p class="text">Cool ! Bienvenue 🥳</p>
-          <h6 class="date">Créé le : 20/12/2021</h6>
-        </div>
+      <!-- <textarea id="" class="input"></textarea> -->
+      <div class="containerBtn">
+        <router-link tag="button" :to="`/onepost/${post.id}`" class="button">
+          Voir publication
+        </router-link>
       </div>
-          <textarea id="" class="input"></textarea>
-          <button>Commenter</button>
     </div>
   </div>
 </template>
 
 <script>
+import http from "../../service/http";
+import moment from "moment";
 export default {
   name: "Post",
+  data() {
+    return {
+      posts: [],
+      post_content: "",
+    };
+  },
+  created() {
+    this.updatePost();
+  },
+  methods: {
+    updatePost() {
+      http()
+        .get("/post")
+        .then((response) => {
+          this.posts = this.posts.concat(response.data);
+          console.log(this.posts);
+        })
+        .catch((error) => console.log(error));
+    },
+
+    convertDate(date) {
+      return moment(date)
+        .subtract(10, "days")
+        .calendar();
+    },
+    createPost() {
+      http()
+        .post("/post", {
+          post_content: this.post_content,
+        })
+        .then(() => {
+          document.location.reload();
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+  },
 };
 </script>
 
@@ -63,24 +92,22 @@ $btn_color: #b93539;
   box-shadow: 0px 0px 5px 2px rgba(0, 0, 0, 0.2);
   border-radius: 3px;
   margin: 20px 10px;
-
 }
-.containerBtnPost {
+.containerBtn {
   margin: 20px 0 25px 0;
 }
 
 .post {
   text-align: left;
- 
   padding: 15px;
-  border-radius: 7px;
+  width: 70%;
   .postFullname {
     color: $btn_color;
     text-align: left;
   }
 }
-.text{
-    text-align: center;
+.text {
+  text-align: center;
 }
 .date {
   text-align: right;
@@ -90,7 +117,7 @@ $btn_color: #b93539;
   text-align: left;
   border: solid 1px rgb(228, 223, 223);
   border-radius: 30px;
-  padding: 0 5px ;
+  padding: 0 5px;
   margin-top: 10px;
 }
 .input {
@@ -103,7 +130,7 @@ $btn_color: #b93539;
   width: 60%;
 }
 
-button {
+.button {
   background: $btn_color;
   margin: 5px;
   padding: 10px 15px;
@@ -113,6 +140,7 @@ button {
   font-weight: bold;
   font-size: 1em;
   color: white;
+  text-decoration: none;
   &:active {
     background-color: white;
     border: solid 2px $btn_color;

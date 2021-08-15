@@ -10,13 +10,15 @@
       </div>
       <div class="btn_container">
         <div>
-          <button class="btn_bg">Publier</button>
+          <router-link tag="button" :to="`/forum/`" class="button">
+            <span>Forum</span>
+          </router-link>
         </div>
         <div>
-          <button>Forum</button>
-        </div>
-        <div>
-          <button>Profile</button>
+          <router-link tag="button" :to="`/profile`" class="button">
+            <span>Profile</span>
+          </router-link>
+
         </div>
       </div>
     </header>
@@ -25,7 +27,7 @@
 
 <script>
 export default {
-    name: 'Header'
+    name: 'Header',
 };
 </script>
 
@@ -51,8 +53,9 @@ header {
 .btn_container {
   display: flex;
   justify-content: center;
+  align-items: center;
 }
-button {
+.button {
   background: $btn_color;
   margin: 10px;
   padding: 10px 15px;
@@ -62,6 +65,7 @@ button {
   font-weight: bold;
   font-size: 1em;
   color: white;
+  text-decoration: none;
   &:active {
     background-color: white;
     border: solid 2px $btn_color;

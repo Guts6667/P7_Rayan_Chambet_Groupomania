@@ -11,7 +11,7 @@ exports.createComment = (req, res, next) => {
   if ( !isInt(postId) ) {
     return res.status(400).send("Le postId est incorrect.");
   }
-
+console.log(req.body);
   postModel.getOne(postId)
     .then(() => {
       if (!req.body.comment) {
