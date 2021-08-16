@@ -1,13 +1,18 @@
+/* Import de connectionDb*/
 const connectionDb = require('../services/connection-bdd');
+/* Import de bcrypt*/
 const bcrypt = require('bcrypt');
+/* Import de mysql*/
 const mysql = require("mysql");
 
+/* Création d'utilisateur*/
 exports.create = (post) => {
   return new Promise((resolve, reject) => {
     const db = connectionDb.getDbConnection();
     const saltRounds = 10;
-
+    /* Utilisation de la fonction hash de bcrypt*/
     bcrypt.hash(post.password, saltRounds, (err, hash) => {
+      /* Requête SQL*/
       const sql = "INSERT INTO Users (firstname, lastname, email, password, user_admin, created, updated) VALUES (?, ?, ?, ?, 0, NOW(), NOW())";
 
       db.query(sql, [post.firstname, post.lastname, post.email, hash], (err, rows, fields) => {
@@ -20,6 +25,7 @@ exports.create = (post) => {
   });
 };
 
+/* Récupération d'un seul utilisateur*/
 exports.findOneBy = (field, value) => {
   return new Promise((resolve, reject) => {
     const db = connectionDb.getDbConnection();
@@ -37,10 +43,13 @@ exports.findOneBy = (field, value) => {
   });
 };
 
+/* Récupération de l'email*/
 exports.findOneByEmail = (email) => {
   return this.findOneBy('email', email);
 };
 
+
+/* Suppression de l'utilisateur*/
 exports.deleteOne = (id) => {
   return new Promise((resolve, reject) => {
 
@@ -54,6 +63,7 @@ exports.deleteOne = (id) => {
   });
 };
 
+/* Récupération utilisateur*/
 exports.getOne = (id) => {
   return new Promise((resolve, reject) => {
 
@@ -67,6 +77,7 @@ exports.getOne = (id) => {
   });
 };
 
+/* Récupération de tous les utilisateurs*/
 exports.getAll = () => {
   return new Promise((resolve, reject) => {
     const db = connectionDb.getDbConnection();

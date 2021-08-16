@@ -1,5 +1,7 @@
+/* Import de mysql*/
 const mysql = require('mysql');
 
+/* Middleware de connection à la base de données*/
 exports.getDbConnection = () => {
 
     const db = mysql.createConnection({

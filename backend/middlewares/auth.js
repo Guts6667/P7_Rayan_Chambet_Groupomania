@@ -1,3 +1,6 @@
+/* Middleware d'authentification*/
+
+/* Import de jsonwebtoken pour créer et vérifier les tokens*/
 const jwt = require("jsonwebtoken");
 
 module.exports = (req, res, next) => {

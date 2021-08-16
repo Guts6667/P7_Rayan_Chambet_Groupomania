@@ -1,11 +1,20 @@
+/* Import du package jwt_decode*/
 const jwt_decode = require('jwt-decode');
+/* Import du model Comments*/
 const commentModel = require('../models/comments');
+/* Import du model Post*/
 const postModel = require('../models/posts');
+/* Import du model User*/
 const userModel = require('../models/users');
+/* Import du fichier utils permettant de nettoyer les string en remplaçant les symboles*/
 const utils = require('../services/utils');
+/* Import de la fonction isLenght du package validator permettant de vérifier la taille d'une string*/
 const isLength = require('validator/lib/isLength');
+/* Import de la fonction isInt du package validator permettant de vérifier si le string est un integer*/
 const isInt = require('validator/lib/isInt');
 
+
+/* Fonction createComment*/
 exports.createComment = (req, res, next) => {
   const postId = req.params.postId;
   if ( !isInt(postId) ) {
@@ -38,6 +47,7 @@ console.log(req.body);
     });
 };
 
+/* Function modifyComment*/
 exports.modifyComment = (req, res, next) => {
 
   commentModel.getOne(req.params.commentId)
@@ -68,6 +78,8 @@ exports.modifyComment = (req, res, next) => {
   })
 }
 
+
+/*Fonction deleteComment */
 exports.deleteComment = (req, res, next) => {
   const token = req.headers.authorization.split(" ")[1];
   const decoded = jwt_decode(token);
@@ -82,6 +94,7 @@ exports.deleteComment = (req, res, next) => {
   })
 }
 
+/* Fonction getOneCOmment*/
 exports.getOneComment = (req, res, next) => {
   commentModel.getOne(req.params.commentId)
   .then((rows) => {
@@ -92,6 +105,7 @@ exports.getOneComment = (req, res, next) => {
   })
 };
 
+/* Fonction getCommentsPost*/
 exports.getCommentsPost = (req, res, next) => {
   commentModel.getCommentsByPost(req.params.postId)
   .then((rows) => {

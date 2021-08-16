@@ -1,9 +1,12 @@
+/* Import de connectionDB*/
 const connectionDb = require('../services/connection-bdd');
 
+/* Model de création de commentaire*/
 exports.create = (userId, postId, comment) => {
   return new Promise((resolve, reject) => {
-
+      /* Récupération de la connexion*/
     const db = connectionDb.getDbConnection();
+    /* Requête SQL*/
     const sql = "INSERT INTO Comments (user_id, post_id, comment, created, updated) VALUES (?, ?, ?, NOW(), NOW())";
     db.query(sql, [userId, postId, comment], (err, rows, fields) => {
       if(err)
@@ -14,6 +17,7 @@ exports.create = (userId, postId, comment) => {
   })
 }
 
+/* Modification du commentaire pour une version ultérieure*/
 exports.modify = (comment, id) => {
   return new Promise((resolve, reject) => {
 
@@ -28,6 +32,7 @@ exports.modify = (comment, id) => {
   });
 };
 
+/* Récupétation du commentaire*/
 exports.getOne = (id) => {
   return new Promise((resolve, reject) => {
 
@@ -41,6 +46,7 @@ exports.getOne = (id) => {
   });
 };
 
+/*Suppression du commentaire */
 exports.deleteOne = (id, userId) => {
   return new Promise((resolve, reject) => {
 
@@ -60,6 +66,7 @@ exports.deleteOne = (id, userId) => {
   });
 };
 
+/* Récupération du commentaire lié au post*/
 exports.getCommentsByPost = (post_id) => {
   return new Promise((resolve, reject) => {
     const db = connectionDb.getDbConnection();

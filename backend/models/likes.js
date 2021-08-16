@@ -1,5 +1,7 @@
+/* Import de connectionDb*/
 const connectionDb = require('../services/connection-bdd');
 
+/* Fonction de création de like pour une version ultérieure*/
 exports.createLike = (userId, postId) => {
   return new Promise((resolve, reject) => {
 
@@ -14,6 +16,7 @@ exports.createLike = (userId, postId) => {
   });
 };
 
+/* Fonction de suppression de like pour versino ultérieure*/
 exports.deleteLike = (post_id, user_id) => {
   return new Promise((resolve, reject) => {
 

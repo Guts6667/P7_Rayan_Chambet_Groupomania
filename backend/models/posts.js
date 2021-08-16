@@ -1,9 +1,12 @@
+/* Import de connectionDb*/
 const connectionDb = require('../services/connection-bdd');
 
+/* Création de post*/
 exports.create = (post_content, userId) => {
   return new Promise((resolve, reject) => {
 
     const db = connectionDb.getDbConnection();
+    /* Requête SQL permettant de créer un post*/
     const sql = "INSERT INTO Posts (post_content, user_id, created, updated) VALUES (?, ?, NOW(), NOW())";
     db.query(sql, [post_content, userId], (err, rows, fields) => {
       if(err)
@@ -14,10 +17,12 @@ exports.create = (post_content, userId) => {
   });
 };
 
+/* Récupération d'un post spécifique*/
 exports.getOne = (id) => {
   return new Promise((resolve, reject) => {
 
     const db = connectionDb.getDbConnection();
+    /*Requête SQL */
     db.query(`SELECT P.*, CONCAT(U.firstname, ' ',  U.lastname) AS username
     FROM Posts AS P
     LEFT JOIN Users AS U ON P.user_id = U.id
@@ -30,9 +35,11 @@ exports.getOne = (id) => {
   });
 };
 
+/* Récupération de tous les posts*/
 exports.getAll = (user_id) => {
   return new Promise((resolve, reject) => {
     const db = connectionDb.getDbConnection();
+    /* Requête SQL*/
     db.query(`SELECT P.*, CONCAT(U.firstname, ' ',  U.lastname) AS username, COUNT(DISTINCT L.id) AS nblikes, COUNT(DISTINCT C.id) AS nbcomments, IF(L2.id, TRUE, FALSE) AS userliked
     FROM Posts AS P
     LEFT JOIN Users AS U ON P.user_id = U.id
@@ -50,10 +57,12 @@ exports.getAll = (user_id) => {
   });
 };
 
+/* Suppression de post*/
 exports.deleteOne = (id, userId) => {
   return new Promise((resolve, reject) => {
 
     const db = connectionDb.getDbConnection();
+    /* Requête SQL*/
     db.query(`DELETE
     FROM Posts AS P
     WHERE P.id = ?
@@ -69,6 +78,7 @@ exports.deleteOne = (id, userId) => {
   });
 };
 
+/* Mise à jour du post pour version ultérieure*/
 exports.updateOne = (post_content, id) => {
   return new Promise((resolve, reject) => {
 

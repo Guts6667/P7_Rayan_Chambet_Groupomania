@@ -1,18 +1,24 @@
+/* Import du model Post*/
 const postModel = require('../models/posts');
+/* Import de jwt_decode*/
 const jwt_decode = require('jwt-decode');
+/* Import du fichier utils permttant de prévenir contre les injections  en remplaçant les symboles*/
 const utils = require('../services/utils');
+/* Import de la fonction isLenght du package validator*/
 const isLength = require('validator/lib/isLength');
 
+/* Fonction createPost*/
 exports.createPost = (req, res, next) => {
-
+    /* Utilisation d'utils pour nettoyer les posts*/
     const post_content = utils.strip_tags(req.body.post_content).trim();
     if ( !isLength(post_content, { min: 2, max: 255 }) ) {
         return res.status(400).send("La longueur du commentaire n'est pas acceptée");
     }
+    /* Vérification*/
     const token = req.headers.authorization.split(" ")[1];
     const decoded = jwt_decode(token);
     const userId = decoded.userId;
-
+    /* Création du post*/
     postModel.create(post_content, userId)
     .then((rows) => {
       res.send(rows);
@@ -22,6 +28,8 @@ exports.createPost = (req, res, next) => {
     })
 };
 
+
+/* Fonction getOnePost*/
 exports.getOnePost = (req, res, next) => {
 
     postModel.getOne(req.params.id)
@@ -33,6 +41,7 @@ exports.getOnePost = (req, res, next) => {
     })
 };
 
+/* Fonction getAllPost*/
 exports.getAllPost = (req, res, next) => {
     const token = req.headers.authorization.split(" ")[1];
     const decoded = jwt_decode(token);
@@ -48,12 +57,15 @@ exports.getAllPost = (req, res, next) => {
     })
 };
 
+/* Fonction deletePost*/
 exports.deletePost = (req, res, next) => {
 
+    /* Vérification*/
     const token = req.headers.authorization.split(" ")[1];
     const decoded = jwt_decode(token);
     const userId = decoded.userId;
-
+    
+    /* Suppression du post*/
     postModel.deleteOne(req.params.id, userId, userId)
     .then(() => {
         res.send("Post supprimé");
@@ -64,12 +76,14 @@ exports.deletePost = (req, res, next) => {
 
 };
 
+    /* Fonction updatePost pour une version ultérieure permettant de mettre à jour un post*/
 exports.updatePost = (req, res, next) => {
 
+    /* Récupération du post*/
     postModel.getOne(req.params.id)
     .then((rows) => {
         const user_id = rows.user_id;
-
+    /* Vérification*/
         const token = req.headers.authorization.split(" ")[1];
         const decoded = jwt_decode(token);
         const userId = decoded.userId;
@@ -81,6 +95,7 @@ exports.updatePost = (req, res, next) => {
         if ( !isLength(post_content, { min: 2, max: 255 }) ) {
             return res.status(400).send("La longueur du commentaire n'est pas acceptée");
         }
+        /* Mise à jour du post*/
         postModel.updateOne(post_content, req.params.id )
         .then((rows) => {
             res.send(rows);
