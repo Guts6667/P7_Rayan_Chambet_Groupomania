@@ -2,67 +2,89 @@
   <div>
     <Header />
     <div class="container">
-        <div>
-            <h5>Prénom : {{ userData[0].firstname }}</h5>
-            <h5>Nom : {{ userData[0].lastname }}</h5>
-            <h5>Adresse mail : {{ userData[0].email }}</h5>
-            <button @click="deleteAccount()">Supprimer mon compte</button>
-        </div>
+      <div>
+        <h3>Votre Profile :</h3>
+        <p>Vous pouvez y retrouver vos informations personnelles.</p>
+      </div>
+      <div>
+        <h4>Prénom : {{ userData[0].firstname }}</h4>
+        <h4>Nom : {{ userData[0].lastname }}</h4>
+        <h4>Adresse mail : {{ userData[0].email }}</h4>
+        <button @click="deleteAccount()">Supprimer mon compte</button>
+      </div>
     </div>
     <div class="container">
-        <h5>Lorem</h5>
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Tenetur voluptatibus itaque eaque vitae, cupiditate velit ullam nulla corporis non asperiores rem. Ullam, facere tempora? Quasi dolorum exercitationem temporibus eum accusantium.</p>
+      <h4>Une question ?</h4>
+      <p>
+        N'hésitez pas à écrire à nos équipes si vous désirez des informations
+        sur le réseau social de Groupomania
+      </p>
+      <h4>Vous souhaitez supprimer votre profile ?</h4>
+      <p>
+        Il vous suffit de clique sur le bouton :
+        <br />
+        <em>"Supprimer mon compte".</em>
+        <br />
+        <br />
+        N'hésitez pas à nous contacter afin que nous puissions améliorer notre
+        application et vous garder parmi nous !
+        <br />
+        <br />
+        Toutes vos données personnelles, publications et posts seront supprimées
+        de l'application et de notre base de données
+      </p>
     </div>
-    <Footer/>
+    <Footer />
   </div>
 </template>
 
 <script>
 import Footer from "@/components/Footer.vue";
 import Header from "@/components/Header.vue";
-import http from '../../service/http';
+import http from "../../service/http";
 import decodeToken from "../../service/decode";
 export default {
-name: 'Profile',
-    components :{
-        Footer,
-        Header,
-},
-data(){
-    return{
-        userData: [],
-        decoded : '',
-    }
-},
-methods :{
-          decode() {
-          let userToken = localStorage.getItem('token');
-          this.decoded = decodeToken(userToken);
-          this.getOneUser();
-      },
-      getOneUser() {
-          http().get(`/user/${this.decoded.userId}`)
-          .then((response) => {
-              this.userData = response.data
-              console.log(this.userData);
-          })
-          .catch(error => console.log(error));
-      },
-      deleteAccount(){ /*http appelle la méthode delete sur la route */
-          http().delete(`/user/delete`)
-          .then(() => {
-              localStorage.removeItem('token');
-              this.$router.push('/');
-          })
-          .catch(error => console.log(error))
-      }
-},
-created(){
+  name: "Profile",
+  components: {
+    Footer,
+    Header,
+  },
+  data() {
+    return {
+      userData: [],
+      decoded: "",
+    };
+  },
+  methods: {
+    decode() {
+      let userToken = localStorage.getItem("token");
+      this.decoded = decodeToken(userToken);
+      this.getOneUser();
+    },
+    getOneUser() {
+      http()
+        .get(`/user/${this.decoded.userId}`)
+        .then((response) => {
+          this.userData = response.data;
+          console.log(this.userData);
+        })
+        .catch((error) => console.log(error));
+    },
+    deleteAccount() {
+      /*http appelle la méthode delete sur la route */
+      http()
+        .delete(`/user/delete`)
+        .then(() => {
+          localStorage.removeItem("token");
+          this.$router.push("/");
+        })
+        .catch((error) => console.log(error));
+    },
+  },
+  created() {
     this.decode();
-}
-
-}
-
+  },
+};
 </script>
 
 <style lang="scss" scoped>
@@ -83,10 +105,11 @@ header {
 .container {
   display: flex;
   justify-content: center;
+  flex-direction: column;
   padding: 10px;
   box-shadow: 0px 0px 5px 2px rgba(0, 0, 0, 0.2);
   border-radius: 3px;
-  margin: 5px;
+  margin: 15px;
 }
 
 .btn_container {

@@ -1,3 +1,4 @@
+<!-- Composant d'inscription -->
 <template>
   <div class="container">
     <div class="form__Signup">
@@ -70,6 +71,7 @@ export default {
     };
   },
   methods: {
+    /*Méthode permettant d'envoyer les données au backend */
     send() {
       axios
         .post("http://localhost:3000/api/user/signup", {

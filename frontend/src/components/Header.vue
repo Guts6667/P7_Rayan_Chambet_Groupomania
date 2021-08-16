@@ -1,3 +1,4 @@
+<!-- Composant Header  -->
 <template>
   <div>
     <header>
@@ -18,7 +19,6 @@
           <router-link tag="button" :to="`/profile`" class="button">
             <span>Profile</span>
           </router-link>
-
         </div>
       </div>
     </header>
@@ -27,7 +27,7 @@
 
 <script>
 export default {
-    name: 'Header',
+  name: "Header",
 };
 </script>
 
@@ -54,6 +54,8 @@ header {
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-bottom: 10px ;
+  margin-top: 10px;
 }
 .button {
   background: $btn_color;
@@ -86,5 +88,4 @@ header {
     transform: scale(1.1);
   }
 }
-
 </style>

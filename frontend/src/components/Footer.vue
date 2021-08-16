@@ -1,17 +1,23 @@
+<!-- Composant Footer -->
 <template>
   <div>
     <footer>
       <div>
         <span>
-          <h4>Contact</h4>
+          <h3>Contact</h3>
         </span>
         <a href="mailto:contact_forum@groupomania.fr">
             <button>Nous écrire</button>
         </a>
       </div>
-      <div >
-        <span><h4>A propos</h4></span>
-        <p>Lorem ipsum dolor sit amet.</p>
+      <div class="about">
+        <span><h3>A propos</h3></span>
+        <p>
+          <em>Cette application est le réseau</em> social privé de Groupomania.
+          <br>
+          Nous espérons vous y voir souvent. 
+          Ce réseau est le votre, amusez-vous !
+          </p>
       </div>
     </footer>
   </div>
@@ -51,6 +57,10 @@ footer{
   font-size: 1em;
   color: $btn_color;
  
+}
+
+.about{
+  width: 50%;
 }
 }
 </style>

@@ -1,3 +1,4 @@
+<!-- Composant Post -->
 <template>
   <div>
     <div class="containerBtn">
@@ -18,13 +19,7 @@
         <div>
           <h6>{{ post.nbcomments }} commentaire(s)</h6>
         </div>
-        <!-- <div class="comment">
-          <h5>Sarah Roi :</h5>
-          <p class="text">Cool ! Bienvenue 🥳</p>
-          <h6 class="date">Créé le : 20/12/2021</h6>
-        </div> -->
       </div>
-      <!-- <textarea id="" class="input"></textarea> -->
       <div class="containerBtn">
         <router-link tag="button" :to="`/onepost/${post.id}`" class="button">
           Voir publication
@@ -49,6 +44,7 @@ export default {
     this.updatePost();
   },
   methods: {
+    /**Méthode updatePost (version ultérieure) */
     updatePost() {
       http()
         .get("/post")
@@ -58,19 +54,20 @@ export default {
         })
         .catch((error) => console.log(error));
     },
-
+    /* Méthode permettant de convertir les dates de créations en format lisible */
     convertDate(date) {
       return moment(date)
         .subtract(10, "days")
         .calendar();
     },
+    /* Méthode permettant de créer le post */
     createPost() {
       http()
         .post("/post", {
           post_content: this.post_content,
         })
         .then(() => {
-          document.location.reload();
+          document.location.reload(); /*Recharge la page pour afficher le post */
         })
         .catch((error) => {
           console.log(error);
@@ -87,6 +84,7 @@ $btn_color: #b93539;
 .container {
   display: flex;
   flex-direction: column;
+  justify-content: center;
   align-items: center;
   padding: 10px;
   box-shadow: 0px 0px 5px 2px rgba(0, 0, 0, 0.2);
@@ -99,8 +97,10 @@ $btn_color: #b93539;
 
 .post {
   text-align: left;
-  padding: 15px;
-  width: 70%;
+  padding: 0 30px 0 30px;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
   .postFullname {
     color: $btn_color;
     text-align: left;

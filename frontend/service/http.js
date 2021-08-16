@@ -1,6 +1,7 @@
+/* Import d'axios permettant de créer des requêtes HTTP et réaliser les opération CRUD*/
 import axios from 'axios'
 
-/*Fonction qui contient l'instance réutilisable dans le fichier forum */
+
 export default function(){
 
   const instance = axios.create({

@@ -1,3 +1,4 @@
+<!-- Composant de connexion -->
 <template>
   <div class="container">
     <div class="form__SignIn">
@@ -45,6 +46,7 @@ export default {
     };
   },
   methods: {
+    /*Méthode permettant d'envoyer les données au backend  lors de la connexion*/
     send() {
       axios
         .post("http://localhost:3000/api/user/login", {

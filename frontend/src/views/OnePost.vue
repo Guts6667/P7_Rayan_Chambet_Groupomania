@@ -1,3 +1,4 @@
+<!-- Vue utilisée lorsqu'on charge un post en particulier -->
 <template>
   <div>
     <Header />
@@ -9,9 +10,6 @@
             {{ post.post_content }}
           </p>
           <h6 class="date">Créé le : {{ convertDate(post.created) }}</h6>
-        </div>
-        <div>
-          <h6>{{ post.nbcomments }} commentaire(s)</h6>
         </div>
         <div v-if="isUserAdmin || (post.user_id === currentId)">
             <button @click="deletePost(post.id)">Supprimer</button>
@@ -30,18 +28,21 @@
         <button @click="postComment()">Commenter</button>
       </div>
     </div>
+    <Footer/>
   </div>
 </template>
 
 <script>
 import http from "../../service/http";
-import moment from "moment";
+import moment from "moment"; /*Utilisé pour convertir les dates */
 import Header from "../components/Header.vue";
+import Footer from "../components/Footer.vue";
 import decodeToken from "../../service/decode";
 export default {
   name: "OnePost",
   components: {
     Header,
+    Footer,
   },
 data() {
       return {
@@ -60,13 +61,14 @@ data() {
         addComment : ''
       }
     },
-    created() {
+    created() { /*Hook */
       this.getPostId();
       this.getOnePost();
       this.getComments();
       this.decode();
     },
     methods: {
+      /* Méthode permetant récupérer un post */
       getOnePost() {
         http().get(`/post/${this.getPostId()}`)
         .then( (response) => {
@@ -75,10 +77,12 @@ data() {
         })
         .catch( (error) => console.log(error))
       },
+      /* Récupère l'id du post */
       getPostId() {
         let postId = this.$route.params.id;
         return postId;
       },
+      /* Récupères les commentaires */
       getComments() {
         http().get(`/post/${this.getPostId()}/comment`)
         .then((response) => {
@@ -89,6 +93,7 @@ data() {
         })
         .catch(error => console.log(error))
       },
+      /* Supprime le post via son id */
       deletePost(id) {
         http().delete(`post/${id}`)
         .then( () => {
@@ -96,6 +101,7 @@ data() {
         })
         .catch( (error) => console.log(error));
       },
+      /* Supprime le commentaire */
       deleteComment(postId, commentId) {
         http().delete(`post/${postId}/comment/${commentId}`)
         .then((response) => {
@@ -104,11 +110,13 @@ data() {
         })
         .catch((error) => console.log(error));
       },
+      /* Décode le token */
       decode() {
           let userToken = localStorage.getItem('token');
           this.decoded = decodeToken(userToken);
           this.getOneUser();
       },
+      /* Récupère les datas de l'utilisateur */
       getOneUser() {
           http().get(`/user/${this.decoded.userId}`)
           .then((response) => {
@@ -120,6 +128,7 @@ data() {
           })
           .catch(error => console.log(error));
       },
+      /* Si le post appartient à l'utilisateur */
       isCurrentUser() {
         if(this.postUser === this.currentId) {
           this.isCurrent = true;
@@ -127,6 +136,7 @@ data() {
           this.isCurrent = false;
         }
       },
+      /* Si le commentaire appartient à l'utilisateur */
       isCurrentUserComment() {
         if(this.commentUserId === this.currentId) {
           this.isCurrentComment = true;
@@ -134,6 +144,7 @@ data() {
           this.isCurrentComment = false;
         }
       },
+      /* Si l'utilisateur possède un compte administrateur */
       isAdmin() {
           if(this.admin == 1) {
               this.isUserAdmin = true;
@@ -142,9 +153,11 @@ data() {
               this.isUserAdmin = false;
           }
       },
+      /* Convertit les dates */
       convertDate(date) {
         return moment(date).subtract(10, 'days').calendar();
       },
+      /* Créer un commentaire */
       postComment(){
           http().post(`/post/${this.getPostId()}/comment`, {comment: this.addComment})
           .then(() => {
@@ -179,7 +192,10 @@ $btn_color: #b93539;
 .post {
   text-align: left;
   padding: 15px;
-  width: 70%;
+  width: 80%;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
   .postFullname {
     color: $btn_color;
     text-align: left;

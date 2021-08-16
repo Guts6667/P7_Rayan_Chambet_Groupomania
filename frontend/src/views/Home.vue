@@ -1,3 +1,4 @@
+<!-- Vue Home permettant de se connecter/s'inscrire -->
 <template>
   <div class="containerBody">
     <header>
@@ -61,6 +62,7 @@ export default {
     };
   },
   methods: {
+    /*Méthode permettant d'afficher les différents formulaires */
     signIn() {
       this.signInForm = true;
       this.signUpForm = false;
