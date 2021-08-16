@@ -25,7 +25,7 @@ export default {
       posts: [],
     };
   },
-  /*Appel de la fonction updatePost */
+  /*Appel de la fonction updatePost au rechargement de la page*/
   created(){
       this.updatePost()
   },

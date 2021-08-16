@@ -97,7 +97,7 @@ data() {
       deletePost(id) {
         http().delete(`post/${id}`)
         .then( () => {
-          this.$router.push("/");
+          this.$router.push("/forum");
         })
         .catch( (error) => console.log(error));
       },

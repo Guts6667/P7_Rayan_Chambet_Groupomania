@@ -4,6 +4,7 @@
     <div class="form__Signup">
       <h3>Inscription :</h3>
       <div class="main__container__input">
+        <label for="firstname">Entrez votre prénom :</label>
         <input
           v-model="firstname"
           class="input"
@@ -16,6 +17,7 @@
         />
       </div>
       <div class="main__container__input">
+        <label for="name">Entrez votre nom :</label>
         <input
           v-model="lastname"
           class="input"
@@ -28,25 +30,27 @@
         />
       </div>
       <div class="main__container__input">
+        <label for="email">Entrez votre email :</label>
         <input
           v-model="email"
           class="input"
           type="email"
           name="email"
           id="email"
-          placeholder="email"
+          placeholder="ex : jean@mail.com"
           required
           minlength="2"
         />
       </div>
       <div class="main__container__input">
+        <label for="password">Entrez votre mot de passe :</label>
         <input
           v-model="password"
           class="input"
           type="password"
           name="password"
           id="password"
-          placeholder="password"
+          placeholder="8min + Maj + Chiffre"
           required
           minlength="2"
         />
@@ -68,6 +72,7 @@ export default {
       lastname: "",
       email: "",
       password: "",
+      errorEmail : "Format email incorrect"
     };
   },
   methods: {
@@ -115,6 +120,7 @@ input {
 }
 input:invalid {
   border: 1px solid $btn_color;
+  background: rgba(255, 0, 0, 0.104);
 }
 input:valid {
   border: 1px solid rgb(57, 216, 57);
