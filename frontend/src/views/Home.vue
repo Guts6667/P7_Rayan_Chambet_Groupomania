@@ -1,5 +1,5 @@
 <!-- Vue Home permettant de se connecter/s'inscrire -->
-<template>
+<template >
   <div class="containerBody">
     <header>
       <div class="containerLogo ">
@@ -19,7 +19,9 @@
       </div>
     </header>
     <section class="mainContainer">
-      <!--INFOS-->
+      <Signup v-if="signUpForm" />
+      <Signin v-if="signInForm" />
+            <!--INFOS-->
       <div class="container">
         <div>
           <h3 class="emph_text">Rejoins nous !</h3>
@@ -29,15 +31,11 @@
             class="loremIcon"
           />
           <p>
-            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Nisi
-            perspiciatis blanditiis temporibus nostrum quas adipisci,
-            exercitationem molestias in ducimus labore atque consequuntur velit
-            eius aut molestiae itaque cupiditate dolorum alias.
+         Bienvenue sur le réseau Sociale de Groupomania, une réseau fait pour vous et par vous. Inscrivez-vous et accéder aux publications de l'incroyable communauté de Groupomania. 
+         Vous pourrez publier ce qui vous plaît, voir les publications de vos collègues préférés et les commenter pour partager vos avis.
           </p>
         </div>
       </div>
-      <Signup v-if="signUpForm" />
-      <Signin v-if="signInForm" />
     </section>
     <Footer />
   </div>

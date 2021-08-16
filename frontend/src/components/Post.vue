@@ -2,9 +2,9 @@
 <template>
   <div>
     <div class="containerBtn">
-      <textarea class="input" v-model="post_content"></textarea>
+      <textarea class="input" v-model="post_content" aria-label="Input création de post"></textarea>
       <div>
-        <button @click="createPost()" class="button">Postez !</button>
+        <button @click="createPost()" class="button" role="button" >Postez !</button>
       </div>
     </div>
     <div class="container" v-for="(post, idx) in posts" :key="idx">
@@ -21,7 +21,7 @@
         </div>
       </div>
       <div class="containerBtn">
-        <router-link tag="button" :to="`/onepost/${post.id}`" class="button">
+        <router-link tag="button" :to="`/onepost/${post.id}`" class="button" role="button" >
           Voir publication
         </router-link>
       </div>

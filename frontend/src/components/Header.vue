@@ -9,18 +9,18 @@
           style="width: 200px"
         />
       </div>
-      <div class="btn_container">
+      <nav class="btn_container">
         <div>
-          <router-link tag="button" :to="`/forum/`" class="button">
+          <router-link tag="button" :to="`/forum/`" class="button" role="button" >
             <span>Forum</span>
           </router-link>
         </div>
         <div>
-          <router-link tag="button" :to="`/profile`" class="button">
+          <router-link tag="button" :to="`/profile`" class="button" role="button" >
             <span>Profile</span>
           </router-link>
         </div>
-      </div>
+      </nav>
     </header>
   </div>
 </template>

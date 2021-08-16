@@ -1,5 +1,5 @@
 <!-- Composant de connexion -->
-<template>
+<template lang="fr">
   <div class="container">
     <div class="form__SignIn">
       <h3>Connexion :</h3>
@@ -13,6 +13,7 @@
           placeholder="email"
           required
           minlength="2"
+          aria-label="input email"
         />
       </div>
       <div class="main__container__input">
@@ -25,10 +26,11 @@
           placeholder="password"
           required
           minlength="2"
+          aria-label="input password"
         />
       </div>
       <div>
-        <button @click="send()">Se connecter</button>
+        <button @click="send()" role="button" >Se connecter</button>
       </div>
     </div>
   </div>

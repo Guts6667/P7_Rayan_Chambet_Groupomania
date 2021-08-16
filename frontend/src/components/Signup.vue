@@ -52,7 +52,7 @@
         />
       </div>
       <div>
-        <button @click="send()">Valider</button>
+        <button @click="send()" aria-describedby="Valider">Valider</button>
       </div>
     </div>
   </div>
