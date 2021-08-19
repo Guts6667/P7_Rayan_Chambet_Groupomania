@@ -11,10 +11,8 @@ const routes = [
   {
     path: '/forum',
     name: 'Forum',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/Forum.vue'),
+
+    component: () => import( '../views/Forum.vue'),
     beforeEnter: (to, from, next) => {
       if(!localStorage.getItem('token')) {
         next("/");
@@ -26,10 +24,8 @@ const routes = [
   {
     path: '/onepost/:id',
     name: 'OnePost',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/OnePost.vue'),
+
+    component: () => import( '../views/OnePost.vue'),
     beforeEnter: (to, from, next) => {
       if(!localStorage.getItem('token')) {
         next("/");
@@ -42,10 +38,8 @@ const routes = [
   {
     path: '/profile/',
     name: 'Profile',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/Profile.vue'),
+
+    component: () => import( '../views/Profile.vue'),
     beforeEnter: (to, from, next) => {
       if(!localStorage.getItem('token')) {
         next("/");
